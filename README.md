@@ -1,6 +1,6 @@
 # biomesh
 
-[![pipeline](https://github.com/amgebauer/biomesh/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/amgebauer/biomesh/actions/workflows/build_and_test.yml)
+[![pipeline](https://github.com/TUM-LNM/biomesh/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/TUM-LNM/biomesh/actions/workflows/build_and_test.yml)
 
 ## Usage
 

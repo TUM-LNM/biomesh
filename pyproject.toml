@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "biomesh"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
   { name="Amadeus Gebauer", email="amadeus.gebauer@tum.de" },
 ]
@@ -36,5 +36,5 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/amgebauer/biomesh"
-"Bug Tracker" = "https://github.com/amgebauer/biomesh/issues"
+"Homepage" = "https://github.com/TUM-LNM/biomesh"
+"Bug Tracker" = "https://github.com/TUM-LNM/biomesh/issues"
