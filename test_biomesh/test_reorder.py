@@ -12,29 +12,29 @@ def test_reorder():
     # store points as data to check whether we will reorder the data correctly
     mesh.point_data["test_data"] = mesh.points
 
-    biomesh.reorder(mesh)
+    reordered_mesh = biomesh.reorder(mesh)
 
     np.testing.assert_allclose(
-        mesh.points[0],
+        reordered_mesh.points[0],
         np.array([3.0, 0.0, 1.0]),
     )
 
     np.testing.assert_allclose(
-        mesh.points[2],
+        reordered_mesh.points[2],
         np.array([3.0, 0.0, 0.0]),
     )
 
     np.testing.assert_allclose(
-        mesh.points[4],
+        reordered_mesh.points[4],
         np.array([2.0, 1.0, 1.0]),
     )
 
     np.testing.assert_allclose(
-        mesh.points[17],
+        reordered_mesh.points[17],
         np.array([5.0, 0.0, 1.0]),
     )
 
     np.testing.assert_allclose(
-        mesh.point_data["test_data"],
-        mesh.points,
+        reordered_mesh.point_data["test_data"],
+        reordered_mesh.points,
     )

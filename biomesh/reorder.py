@@ -2,6 +2,7 @@ import meshio
 import scipy.sparse as sp
 import numpy as np
 from collections import defaultdict
+import copy
 
 
 def reverse_permutation(perm: np.ndarray) -> np.ndarray:
@@ -69,12 +70,28 @@ def reorder(mesh: meshio.Mesh):
     reverse_points_permutation = reverse_permutation(points_permutation)
 
     # reorder the mesh points
-    mesh.points = mesh.points[points_permutation]
+    new_points = mesh.points[points_permutation]
+    new_point_data = {}
 
     # reorder point data
     for key, data in mesh.point_data.items():
-        mesh.point_data[key] = data[points_permutation]
+        new_point_data[key] = data[points_permutation]
+
+    cell_blocks = []
 
     # adapt cell connectivity
     for cell_block in mesh.cells:
-        cell_block.data = reverse_points_permutation[cell_block.data]
+        cell_blocks.append(
+            meshio.CellBlock(
+                cell_type=cell_block.type,
+                data=reverse_points_permutation[cell_block.data],
+            )
+        )
+
+    return meshio.Mesh(
+        points=new_points,
+        point_data=new_point_data,
+        cells=cell_blocks,
+        cell_data=copy.deepcopy(mesh.cell_data),
+        field_data=copy.deepcopy(mesh.field_data),
+    )

@@ -16,7 +16,11 @@ mesh = biomesh.mesh_colored_stl_files(
     mesh_size=2.0
 )
 
-# do something with mesh
+# make all elements quadratic
+mesh = biomesh.lin_to_quad(mesh)
+
+# reorder nodes to reduce bandwith of matrix
+mesh = biomesh.reorder(mesh)
 ```
 
 The nodes of all stl-files are matched. Each stl-file will be considered as an own volume.
