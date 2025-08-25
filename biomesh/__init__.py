@@ -19,6 +19,8 @@ import meshio
 from .reorder import reorder
 from .adapt import lin_to_quad
 
+from . import laplace
+
 
 def combine_colored_stl_files(*stl_files: pathlib.Path) -> meshio.Mesh:
     """Combine multiple colored STL files into a single mesh that is
