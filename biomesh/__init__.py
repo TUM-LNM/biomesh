@@ -39,7 +39,7 @@ def mesh_colored_stl_files(*stl_files: pathlib.Path, mesh_size: float) -> meshio
 
     Returns
     -------
-    lnmmeshio.Discretization
+    meshio.Mesh
         The generated mesh.
     """
     assert len(stl_files) > 0, "At least one STL file must be provided."
