@@ -18,6 +18,8 @@ import tempfile
 import meshio
 from .reorder import reorder
 from .adapt import lin_to_quad
+from .merge import merge
+from . import filter
 
 from . import laplace
 
