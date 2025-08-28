@@ -50,7 +50,7 @@ def build_csr_from_multiple_elements(
     return sp.csr_array((data, indices, indptr), shape=(n_nodes, n_nodes))
 
 
-def reorder(mesh: meshio.Mesh) -> None:
+def reorder(mesh: meshio.Mesh) -> meshio.Mesh:
     """Reorder the nodes of a mesh in-place to minimize the bandwidth of the
     adjacency matrix.
 
