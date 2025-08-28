@@ -1,3 +1,10 @@
+# This file is part of biomesh licensed under the MIT License.
+#
+# See the LICENSE file in the top-level for license information.
+#
+# SPDX-License-Identifier: MIT
+"""A module for utils for generating meshes."""
+
 import lnmmeshio
 import pathlib
 import numpy as np
@@ -5,7 +12,9 @@ import meshio
 import scipy.spatial as sp
 
 
-def build_node_mapping(points1: np.ndarray, points2: np.ndarray):
+def build_node_mapping(points1: np.ndarray, points2: np.ndarray) -> dict[int, int]:
+    """Build a mapping from points in points2 to points in points1 using a
+    tree."""
     tree1 = sp.cKDTree(points1)
     tree2 = sp.cKDTree(points2)
 
@@ -21,15 +30,15 @@ def build_node_mapping(points1: np.ndarray, points2: np.ndarray):
     return mapping
 
 
-def _sort_cell_node_ids(arr):
+def _sort_cell_node_ids(arr: np.ndarray) -> tuple[int, ...]:
+    """Sort cell node IDs and return as tuple."""
     return tuple(sorted([int(i) for i in arr]))
 
 
 def merge_colored_stl(
     base_stl: pathlib.Path, *stl_files: pathlib.Path
 ) -> tuple[meshio.Mesh, list[set[int]]]:
-    """
-    Merge multiple colored STL files into a single mesh.
+    """Merge multiple colored STL files into a single mesh.
 
     Parameters
     ----------
@@ -40,7 +49,6 @@ def merge_colored_stl(
     -------
     tuple[meshio.Mesh, list[list[int]]]
         The merged mesh and the surface ID mapping enclosing the different volumes define by the surface ids.
-
     """
     base_mesh = lnmmeshio.read_mesh(str(base_stl), file_format="mimicsstl")
 
@@ -106,7 +114,7 @@ def merge_colored_stl(
             surface_loops[mesh_id].add(cell_surface_ids[key])
 
         # find intersecting line elements between each surface
-        intersecting_surface_line_ids = {}
+        intersecting_surface_line_ids: dict[tuple, list[int]] = {}
         for i, (surf_ele, surf_id) in enumerate(zip(cell_tri_list, surface_id_list)):
             # go over each line element of the surface
             for le in [
@@ -124,7 +132,7 @@ def merge_colored_stl(
 
         line_elements = []
         line_ids = []
-        used_line_ids = {}
+        used_line_ids: dict[tuple, int] = {}
         for node_ids, surf_ids in intersecting_surface_line_ids.items():
             if len(surf_ids) > 1:
                 line_elements.append([node_ids[0], node_ids[1]])

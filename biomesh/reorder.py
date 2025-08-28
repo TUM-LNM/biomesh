@@ -1,3 +1,10 @@
+# This file is part of biomesh licensed under the MIT License.
+#
+# See the LICENSE file in the top-level for license information.
+#
+# SPDX-License-Identifier: MIT
+"""A module for reordering nodes in a finite element mesh."""
+
 import meshio
 import scipy.sparse as sp
 import numpy as np
@@ -5,14 +12,16 @@ from collections import defaultdict
 
 
 def reverse_permutation(perm: np.ndarray) -> np.ndarray:
+    """Compute the inverse of a permutation array."""
     inv = np.empty_like(perm)
     inv[perm] = np.arange(len(perm))
     return inv
 
 
-def build_csr_from_multiple_elements(n_nodes, *elements_lists):
-    """
-    Build a CSR adjacency matrix from multiple lists of cell connectivity.
+def build_csr_from_multiple_elements(
+    n_nodes: int, *elements_lists: np.ndarray
+) -> sp.csr_array:
+    """Build a CSR adjacency matrix from multiple lists of cell connectivity.
 
     n_nodes: total number of nodes
     elements_lists: variable number of arrays/lists of elements
@@ -40,9 +49,9 @@ def build_csr_from_multiple_elements(n_nodes, *elements_lists):
     return sp.csr_array((data, indices, indptr), shape=(n_nodes, n_nodes))
 
 
-def reorder(mesh: meshio.Mesh):
-    """
-    Reorder the nodes of a mesh in-place to minimize the bandwidth of the adjacency matrix.
+def reorder(mesh: meshio.Mesh) -> None:
+    """Reorder the nodes of a mesh in-place to minimize the bandwidth of the
+    adjacency matrix.
 
     This function uses the reverse Cuthill-McKee algorithm to find an optimal ordering
     of the nodes in the mesh, which is particularly useful for sparse matrices.
