@@ -29,7 +29,7 @@ repos:
     hooks:
       - id: bandit
         name: Run bandit (security linter for python)
-        args: ["-c", "pyproject.toml", "-r", "-ll", "biomesh/", "test_biomesh/"]
+        args: ["-c", "pyproject.toml", "-r", "-ll", "biomesh/", "tests/"]
         additional_dependencies: ["bandit[toml]"]
   - repo: https://github.com/PyCQA/docformatter
     rev: v1.7.7
@@ -42,7 +42,7 @@ repos:
             "--config=./pyproject.toml",
             "-r",
             "biomesh/",
-            "test_biomesh/",
+            "tests/",
           ]
   - repo: https://github.com/econchick/interrogate
     rev: 1.7.0
@@ -64,7 +64,7 @@ repos:
             "--check-untyped-defs",
             "--disallow-untyped-decorators",
           ]
-        exclude: "test_biomesh/"
+        exclude: "tests/"
   - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.5.5
     hooks:
