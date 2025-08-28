@@ -25,6 +25,7 @@ from .filter import (
     filter_by_cellblock_point_mapping,
 )
 
+from . import utils
 from . import laplace
 
 
