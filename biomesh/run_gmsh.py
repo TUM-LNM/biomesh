@@ -1,3 +1,10 @@
+# This file is part of biomesh licensed under the MIT License.
+#
+# See the LICENSE file in the top-level for license information.
+#
+# SPDX-License-Identifier: MIT
+"""A module controlling running the gmsh api if installed."""
+
 import pathlib
 import meshio
 import tempfile
@@ -34,8 +41,31 @@ class GmshApi:
 
 def remesh_file(
     file_path: pathlib.Path, surface_loops: list[set[int]], mesh_size: float
-):
-    with GmshApi() as gmsh:
+) -> meshio.Mesh:
+    """Remeshes a given mesh file using GMSH, creating new volumes from
+    provided surface loops and applying a specified mesh size.
+
+    Args:
+        file_path: pathlib.Path
+            Path to the input mesh file to be remeshed.
+
+        surface_loops: list[set[int]]
+            List of sets, where each set contains surface IDs to be grouped into a surface loop for volume creation.
+
+        mesh_size: float
+            Target mesh size to be used for remeshing.
+
+    Returns:
+        meshio.Mesh: The remeshed mesh as a meshio Mesh object.
+
+    Raises:
+        RuntimeError: If the GMSH Python API is not available.
+
+    Notes:
+        - Requires the GMSH Python API (`gmsh`) and `meshio` to be installed.
+        - The function creates temporary files during processing, which are cleaned up automatically.
+    """
+    with GmshApi() as gmsh:  # type: ignore
         # read mesh file
         gmsh.merge(str(file_path))
 

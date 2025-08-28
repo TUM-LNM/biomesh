@@ -1,0 +1,5 @@
+This file is part of biomesh licensed under the MIT License.
+
+See the LICENSE file in the top-level for license information.
+
+SPDX-License-Identifier: MIT
