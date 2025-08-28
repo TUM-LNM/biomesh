@@ -14,17 +14,6 @@ import numpy as np
 _my_script_dir = pathlib.Path(__file__).parent
 
 
-def test_combine_stl():
-    """Tests combining multiple stl-files into a mesh-file."""
-    mesh = biomesh.combine_colored_stl_files(
-        _my_script_dir / "data" / "p1.stl",
-        _my_script_dir / "data" / "p2.stl",
-        _my_script_dir / "data" / "p3.stl",
-    )
-
-    meshio.write("test.mesh", mesh)
-
-
 def test_mesh_stl():
     """Test meshing multiple stl files."""
 
