@@ -1,25 +1,41 @@
-import gmsh
 import pathlib
 import meshio
 import tempfile
+from types import TracebackType, ModuleType
 
 
 class GmshApi:
+    """A context manager for the GMSH API."""
 
-    def __init__(self):
-        pass
+    def __init__(self):  # type: ignore
+        try:
+            import gmsh
+        except ImportError:
+            raise RuntimeError(
+                "GMSH Python API is not available. In order to use Gmsh, you need to manually install gmsh, e.g., via pip install gmsh"
+            )
 
-    def __enter__(self):
-        gmsh.initialize()
+        self.gmsh = gmsh
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        gmsh.finalize()
+    def __enter__(self):  # type: ignore
+        """Initialize gmsh api."""
+        self.gmsh.initialize()
+        return self.gmsh
+
+    def __exit__(
+        self,
+        type_: type[BaseException] | None,
+        value: BaseException | None,
+        traceback: TracebackType | None,
+    ) -> None:  # type: ignore
+        """Finalize gmsh api."""
+        self.gmsh.finalize()
 
 
 def remesh_file(
     file_path: pathlib.Path, surface_loops: list[set[int]], mesh_size: float
 ):
-    with GmshApi():
+    with GmshApi() as gmsh:
         # read mesh file
         gmsh.merge(str(file_path))
 
