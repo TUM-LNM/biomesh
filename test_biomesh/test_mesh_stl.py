@@ -1,3 +1,10 @@
+# This file is part of biomesh licensed under the MIT License.
+#
+# See the LICENSE file in the top-level for license information.
+#
+# SPDX-License-Identifier: MIT
+"""Tests for meshing stl-files."""
+
 import biomesh
 import pathlib
 import meshio
@@ -8,6 +15,7 @@ _my_script_dir = pathlib.Path(__file__).parent
 
 
 def test_combine_stl():
+    """Tests combining multiple stl-files into a mesh-file."""
     mesh = biomesh.combine_colored_stl_files(
         _my_script_dir / "data" / "p1.stl",
         _my_script_dir / "data" / "p2.stl",
@@ -18,6 +26,7 @@ def test_combine_stl():
 
 
 def test_mesh_stl():
+    """Test meshing multiple stl files."""
 
     mesh = biomesh.mesh_colored_stl_files(
         _my_script_dir / "data" / "p1.stl",

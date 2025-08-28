@@ -1,3 +1,10 @@
+# This file is part of biomesh licensed under the MIT License.
+#
+# See the LICENSE file in the top-level for license information.
+#
+# SPDX-License-Identifier: MIT
+"""Tests for reordering nodes/elements in a finite element mesh."""
+
 import pathlib
 import meshio
 import biomesh
@@ -5,6 +12,7 @@ import numpy as np
 
 
 def test_reorder():
+    """Tests reordering the nodes in a finite element mesh."""
     _my_script_dir = pathlib.Path(__file__).parent
 
     mesh = meshio.read(_my_script_dir / "data" / "test_mesh.vtu")

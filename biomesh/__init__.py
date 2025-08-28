@@ -1,3 +1,15 @@
+# This file is part of biomesh licensed under the MIT License.
+#
+# See the LICENSE file in the top-level for license information.
+#
+# SPDX-License-Identifier: MIT
+"""
+biomesh
+=======
+
+biomesh is a Python package for working with 3D meshes, providing tools for mesh generation, manipulation, and analysis
+tailored for finite element simulations of biomechanical applications.
+"""
 from . import run_gmsh
 import pathlib
 from . import mesh
@@ -8,15 +20,13 @@ from .reorder import reorder
 
 
 def combine_colored_stl_files(*stl_files: pathlib.Path) -> meshio.Mesh:
-    """
-    Combine multiple colored STL files into a single mesh that is returned.
-    """
+    """Combine multiple colored STL files into a single mesh that is
+    returned."""
     return mesh.merge_colored_stl(*stl_files)[0]
 
 
 def mesh_colored_stl_files(*stl_files: pathlib.Path, mesh_size: float) -> meshio.Mesh:
-    """
-    Generate a mesh from multiple colored STL files
+    """Generate a mesh from multiple colored STL files.
 
     Parameters
     ----------

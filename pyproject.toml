@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "biomesh"
-version = "0.3.0"
+version = "0.3.1"
 authors = [
   { name="The biomesh Authors" },
 ]
@@ -15,7 +15,7 @@ license = { file = "LICENSE" }
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
