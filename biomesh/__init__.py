@@ -19,7 +19,11 @@ import meshio
 from .reorder import reorder
 from .adapt import lin_to_quad
 from .merge import merge
-from . import filter
+from .filter import (
+    filter_by_cellblock,
+    filter_by_block_ids,
+    filter_by_cellblock_point_mapping,
+)
 
 from . import laplace
 

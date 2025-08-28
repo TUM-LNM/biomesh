@@ -10,7 +10,7 @@ import numpy as np
 from typing import Callable
 
 
-def points_map_by_cellblock(
+def filter_by_cellblock_point_mapping(
     mesh: meshio.Mesh, filter: Callable[[meshio.CellBlock], bool]
 ) -> np.ndarray:
     """Generates a mapping from original mesh point indices to new indices
@@ -61,7 +61,7 @@ def points_map_by_cellblock(
     return point_id_map
 
 
-def by_cellblock(
+def filter_by_cellblock(
     mesh: meshio.Mesh, filter: Callable[[meshio.CellBlock], bool]
 ) -> meshio.Mesh:
     """Filter a mesh to include only cells of specified types.
@@ -93,10 +93,10 @@ def by_cellblock(
         ]
     )
 
-    return by_block_ids(mesh, cell_filter)
+    return filter_by_block_ids(mesh, cell_filter)
 
 
-def by_block_ids(mesh: meshio.Mesh, cellblock_ids: np.ndarray) -> meshio.Mesh:
+def filter_by_block_ids(mesh: meshio.Mesh, cellblock_ids: np.ndarray) -> meshio.Mesh:
     """Extracts a subset of a mesh based on specified cell block indices.
 
     Given a meshio.Mesh object and an array of cell block indices, this function creates a new mesh containing only the cells from the specified cell blocks and the points referenced by those cells. The point indices are remapped so that the resulting mesh is consistent and compact. Associated point and cell data are also filtered accordingly.
@@ -135,7 +135,7 @@ def by_block_ids(mesh: meshio.Mesh, cellblock_ids: np.ndarray) -> meshio.Mesh:
     point_id_map = np.zeros(len(mesh.points), dtype=int) - 1
     point_id_map[point_filter] = np.arange(len(point_filter))
 
-    # now we have to extract all node-ids that
+    # now we have to extract all remaining nodes, cellblocks and the corresponding data
     return meshio.Mesh(
         points=mesh.points[point_filter],
         cells=[

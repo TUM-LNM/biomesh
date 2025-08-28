@@ -23,7 +23,7 @@ def test_filter_by_cellblock():
     full_mesh.point_data["coords"] = full_mesh.points
 
     # filter tetra10 cells
-    full_mesh_tet10 = biomesh.filter.by_cellblock(
+    full_mesh_tet10 = biomesh.filter_by_cellblock(
         full_mesh, lambda block: block.type == "tetra10"
     )
 
@@ -38,7 +38,7 @@ def test_filter_by_cellblock():
     )
 
 
-def test_filter_points_map_by_cellblock():
+def test_filter_by_cellblock_point_mapping():
     """Test the points map by a specific cellblock filter."""
     script_dir = pathlib.Path(__file__).parent
     meshes = [
@@ -51,7 +51,7 @@ def test_filter_points_map_by_cellblock():
     full_mesh.point_data["coords"] = full_mesh.points
 
     # filter tetra10 cells
-    map = biomesh.filter.points_map_by_cellblock(
+    map = biomesh.filter_by_cellblock_point_mapping(
         full_mesh, lambda block: block.type == "tetra10"
     )
 
