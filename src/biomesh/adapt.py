@@ -103,11 +103,7 @@ def lin_to_quad(mesh: meshio.Mesh) -> meshio.Mesh:
         new_cells = []
         cell_type = cellblock.type
 
-        if cell_type in ["vertex"]:
-            # vertices do not need to be converted
-            continue
-
-        if cell_type in ["hexahedron27", "tetra10", "triangle6", "quad9"]:
+        if cell_type in ["vertex", "hexahedron27", "tetra10", "triangle6", "quad9"]:
             # this cell block is already quadratic, no need to convert
             new_cell_blocks.append(cellblock)
             for key, data in mesh.cell_data.items():
