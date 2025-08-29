@@ -81,12 +81,11 @@ def lin_to_quad(mesh: meshio.Mesh) -> meshio.Mesh:
     are converted into their corresponding quadratic elements.
 
     Args:
-    -------
-    mesh: meshio.Mesh
-        The input mesh containing linear elements.
+        mesh:
+            The input mesh containing linear elements.
 
     Returns:
-        meshio.Mesh: The modified mesh with quadratic elements.
+        The modified mesh with quadratic elements.
     """
 
     new_points = [coord for coord in mesh.points]
@@ -103,11 +102,7 @@ def lin_to_quad(mesh: meshio.Mesh) -> meshio.Mesh:
         new_cells = []
         cell_type = cellblock.type
 
-        if cell_type in ["vertex"]:
-            # vertices do not need to be converted
-            continue
-
-        if cell_type in ["hexahedron27", "tetra10", "triangle6", "quad9"]:
+        if cell_type in ["vertex", "hexahedron27", "tetra10", "triangle6", "quad9"]:
             # this cell block is already quadratic, no need to convert
             new_cell_blocks.append(cellblock)
             for key, data in mesh.cell_data.items():

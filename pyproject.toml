@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "biomesh"
-version = "0.4.1"
+version = "0.5.0"
 authors = [
   { name="The biomesh Authors" },
 ]
@@ -31,8 +31,12 @@ dependencies = [
     "PyYAML>=6.0.0, <7",
     "scipy",
     "lnmmeshio>=5.6.4",
+    "symfem==2025.6.0",
 ]
 
 [project.urls]
 "Homepage" = "https://github.com/TUM-LNM/biomesh"
 "Bug Tracker" = "https://github.com/TUM-LNM/biomesh/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/biomesh"]
