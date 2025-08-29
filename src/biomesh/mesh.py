@@ -40,14 +40,10 @@ def merge_colored_stl(
 ) -> tuple[meshio.Mesh, list[set[int]]]:
     """Merge multiple colored STL files into a single mesh.
 
-    Parameters
-    ----------
-    *stl_files : str
-        Paths to the STL files to be merged.
+    Args:
+        *stl_files: Paths to the STL files to be merged.
 
-    Returns
-    -------
-    tuple[meshio.Mesh, list[list[int]]]
+    Returns:
         The merged mesh and the surface ID mapping enclosing the different volumes define by the surface ids.
     """
     base_mesh = lnmmeshio.read_mesh(str(base_stl), file_format="mimicsstl")

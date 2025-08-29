@@ -37,24 +37,19 @@ _first_derivative_storage = {}
 def ref_coords(cell_type: str) -> np.ndarray:
     """Return the reference coordinates for the nodes of a given cell type.
 
-    Parameters
-    ----------
-    cell_type : str
-        The type of the cell. Supported values are:
-        - "hexahedron": 8-node hexahedral element (cube).
-        - "tetra": 4-node tetrahedral element.
-        - "tetra10": 10-node quadratic tetrahedral element.
+    Args:
+        cell_type:
+            The type of the cell. Supported values are:
+            - "hexahedron": 8-node hexahedral element (cube).
+            - "tetra": 4-node tetrahedral element.
+            - "tetra10": 10-node quadratic tetrahedral element.
 
-    Returns
-    -------
-    np.ndarray
+    Returns:
         An array of shape (n_nodes, 3) containing the reference coordinates
         of the nodes for the specified cell type.
 
-    Raises
-    ------
-    ValueError
-        If the provided cell_type is not supported.
+    Raises:
+        ValueError: If the provided cell_type is not supported.
     """
     element = _create_symfem_element(cell_type)
     return np.array(element.dof_plot_positions(), dtype=float)[
@@ -68,33 +63,27 @@ def int_points_weights(
     """Compute integration (quadrature) points and weights for given cell type
     and number of points.
 
-    Parameters
-    ----------
-    cell_type : str
-        The type of cell for which to compute integration points and weights.
-        Supported values are strings starting with "hexahedron" or "tetra".
-    num_points : int
-        The number of integration points to use.
-        Supported values:
+    Args:
+        cell_type:
+            The type of cell for which to compute integration points and weights.
+            Supported values are strings starting with "hexahedron" or "tetra".
+        num_points:
+            The number of integration points to use.
+            Supported values:
             - For "hexahedron": 1 or 8
             - For "tetra": 1 or 4
 
-    Returns
-    -------
-    tuple[np.ndarray, np.ndarray]
+    Returns:
         A tuple containing:
             - points: np.ndarray of shape (num_points, dim)
                 The coordinates of the integration points in the reference cell.
             - weights: np.ndarray of shape (num_points,)
                 The corresponding integration weights.
 
-    Raises
-    ------
-    ValueError
-        If the cell type or number of points is not supported.
+    Raises:
+        ValueError: If the cell type or number of points is not supported.
 
-    Examples
-    --------
+    Examples:
     >>> points, weights = int_points_weights("hexahedron", 8)
     >>> points.shape
     (8, 3)
@@ -159,28 +148,23 @@ def shape_functions(cell_type: str, xi: np.ndarray) -> np.ndarray:
     """Compute the shape functions for a given cell type at specified local
     coordinates.
 
-    Parameters
-    ----------
-    cell_type : str
-        The type of finite element cell. Supported values are:
-        - "hexahedron": 8-node trilinear hexahedral element
-        - "tetra": 4-node linear tetrahedral element
-    xi : np.ndarray
-        The local coordinates at which to evaluate the shape functions.
-        For "hexahedron", xi should be a 3-element array (xi, eta, zeta) with values in [-1, 1].
-        For "tetra", xi should be a 3-element array (xi, eta, zeta) with values in [0, 1] and xi[0] + xi[1] + xi[2] <= 1.
+    Args:
+        cell_type:
+            The type of finite element cell. Supported values are:
+            - "hexahedron": 8-node trilinear hexahedral element
+            - "tetra": 4-node linear tetrahedral element
+        xi:
+            The local coordinates at which to evaluate the shape functions.
+            For "hexahedron", xi should be a 3-element array (xi, eta, zeta) with values in [-1, 1].
+            For "tetra", xi should be a 3-element array (xi, eta, zeta) with values in [0, 1] and xi[0] + xi[1] + xi[2] <= 1.
 
-    Returns
-    -------
-    np.ndarray
+    Returns:
         The values of the shape functions at the given local coordinates.
         - For "hexahedron": array of shape (8,)
         - For "tetra": array of shape (4,)
 
-    Raises
-    ------
-    ValueError
-        If the provided cell_type is not supported.
+    Raises:
+        ValueError: If the provided cell_type is not supported.
     """
     element = _create_symfem_element(cell_type)
     return element.tabulate_basis_float([xi])[_SYMFEM_NODE_REORDERING[cell_type]]
@@ -190,28 +174,23 @@ def shape_function_first_derivatives(cell_type: str, xi: np.ndarray) -> np.ndarr
     """Compute the derivatives of shape functions with respect to the reference
     coordinates for various cell types.
 
-    Parameters
-    ----------
-    cell_type : str
-        The type of finite element cell. Supported values are:
-            - "hexahedron": 8-node trilinear hexahedral element
-            - "tetra": 4-node linear tetrahedral element
-            - "tetra10": 10-node quadratic tetrahedral element
-    xi : np.ndarray
-        The local (reference) coordinates at which to evaluate the shape function derivatives.
-        For 3D elements, this should be a 1D array of length 3: [xi, eta, zeta].
+    Args:
+        cell_type:
+            The type of finite element cell. Supported values are:
+                - "hexahedron": 8-node trilinear hexahedral element
+                - "tetra": 4-node linear tetrahedral element
+                - "tetra10": 10-node quadratic tetrahedral element
+        xi:
+            The local (reference) coordinates at which to evaluate the shape function derivatives.
+            For 3D elements, this should be a 1D array of length 3: [xi, eta, zeta].
 
-    Returns
-    -------
-    np.ndarray
+    Returns:
         The derivatives of the shape functions with respect to the reference coordinates.
         The shape of the returned array is (n_nodes, 3), where n_nodes is the number of nodes
         for the specified cell type.
 
-    Raises
-    ------
-    ValueError
-        If an unsupported cell type is provided.
+    Raises:
+        ValueError: If an unsupported cell type is provided.
     """
 
     if cell_type not in _first_derivative_storage:
@@ -235,17 +214,11 @@ def grad(mesh: meshio.Mesh, phi: np.ndarray) -> np.ndarray:
 
     The gradient is computed at the nodes where it is averaged from the surrounding elements.
 
-    Parameters
-    ----------
-    mesh : meshio.Mesh
-        The input mesh.
+    Args:
+        mesh: The input mesh.
+        phi: The scalar field defined at the nodes of the mesh.
 
-    phi : np.ndarray
-        The scalar field defined at the nodes of the mesh.
-
-    Returns
-    -------
-    np.ndarray
+    Returns:
         The gradient of the scalar field at the nodes of the mesh.
     """
 

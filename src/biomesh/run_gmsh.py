@@ -46,13 +46,13 @@ def remesh_file(
     provided surface loops and applying a specified mesh size.
 
     Args:
-        file_path: pathlib.Path
+        file_path:
             Path to the input mesh file to be remeshed.
 
-        surface_loops: list[set[int]]
+        surface_loops:
             List of sets, where each set contains surface IDs to be grouped into a surface loop for volume creation.
 
-        mesh_size: float
+        mesh_size:
             Target mesh size to be used for remeshing.
 
     Returns:

@@ -15,11 +15,11 @@ def merge(*meshes: meshio.Mesh) -> meshio.Mesh:
     into a new meshio.Mesh object. It handles the necessary index adjustments for points and
     cells, and ensures that point and cell data are correctly merged and aligned.
 
-    Parameters:
-        *meshes (meshio.Mesh): Variable number of meshio.Mesh objects to merge.
+    Args:
+        *meshes: Variable number of meshio.Mesh objects to merge.
 
     Returns:
-        meshio.Mesh: A new meshio.Mesh object containing the merged data from all input meshes.
+        A new meshio.Mesh object containing the merged data from all input meshes.
 
     Notes:
         - Point and cell data arrays are padded with zeros if not present at other meshes.

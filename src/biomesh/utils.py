@@ -14,18 +14,12 @@ def bislerp(
     """Bidirectional-spherical linear interpolation between two rotation
     matrices.
 
-    Parameters
-    ----------
-    Q_A : sp.transform.Rotation
-        The first set of rotation matrices.
-    Q_B : sp.transform.Rotation
-        The second set of rotation matrices.
-    t : np.ndarray
-        The interpolation parameter(s).
+    Args:
+        Q_A: The first set of rotation matrices.
+        Q_B: The second set of rotation matrices.
+        t: The interpolation parameter(s).
 
-    Returns
-    -------
-    sp.transform.Rotation
+    Returns:
         The interpolated rotation matrices.
     """
 

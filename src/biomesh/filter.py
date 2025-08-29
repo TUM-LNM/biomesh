@@ -22,15 +22,13 @@ def filter_by_cellblock_point_mapping(
     consecutive indices; for points not included, the value is -1.
 
     Args:
-        mesh: meshio.Mesh
-            The input mesh object containing points and cell blocks.
+        mesh: The input mesh object containing points and cell blocks.
 
-        filter: Callable[[meshio.CellBlock], bool])
-            A function that takes a cell block and returns True if it should be included.
+        filter: A function that takes a cell block and returns True if it should be included.
 
     Returns:
-        np.ndarray: An array of length `len(mesh.points)` where each entry is the new index of the point if it is included
-                    in the filtered cell blocks, or -1 otherwise.
+        An array of length `len(mesh.points)` where each entry is the new index of the point if it is included
+        in the filtered cell blocks, or -1 otherwise.
     """
 
     cell_filter = np.array(
@@ -66,21 +64,15 @@ def filter_by_cellblock(
 ) -> meshio.Mesh:
     """Filter a mesh to include only cells of specified types.
 
-    Parameters
-    ----------
-    mesh : meshio.Mesh
-        The input mesh to filter.
-    filter : Callable[[meshio.CellBlock], bool]
-        A function that takes a cell block and returns True if it should be included.
+    Args:
+        mesh: The input mesh to filter.
+        filter: A function that takes a cell block and returns True if it should be included.
 
-    Returns
-    -------
-    meshio.Mesh
+    Returns:
         A new meshio.Mesh object containing only the cells of the specified types,
         with unused points removed and point/cell data filtered accordingly.
 
     Notes
-    -----
     - If no cells of the specified types are found, returns an empty mesh with zero points and cells.
     """
 
@@ -101,15 +93,12 @@ def filter_by_block_ids(mesh: meshio.Mesh, cellblock_ids: np.ndarray) -> meshio.
 
     Given a meshio.Mesh object and an array of cell block indices, this function creates a new mesh containing only the cells from the specified cell blocks and the points referenced by those cells. The point indices are remapped so that the resulting mesh is consistent and compact. Associated point and cell data are also filtered accordingly.
 
-    Parameters:
-        mesh: meshio.Mesh
-            The input mesh from which to extract cell blocks.
-
-        cellblock_ids: np.ndarray
-            An array of indices specifying which cell blocks to include in the output mesh.
+    Args:
+        mesh: The input mesh from which to extract cell blocks.
+        cellblock_ids: An array of indices specifying which cell blocks to include in the output mesh.
 
     Returns:
-        meshio.Mesh: A new meshio.Mesh object containing only the specified cell blocks and their associated points and data.
+        A new meshio.Mesh object containing only the specified cell blocks and their associated points and data.
 
     Notes:
         - If cellblock_ids is empty, returns an empty mesh with no points or cells.

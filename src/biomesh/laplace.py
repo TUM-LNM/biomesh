@@ -21,16 +21,11 @@ def get_cell_stiffness(cell_type: str, nodal_coords: np.ndarray) -> np.ndarray:
     """Computes the element stiffness matrix for a finite element cell for a
     simple Laplace problem.
 
-    Parameters
-    ----------
-    cell_type : str
-        The type of the finite element cell (e.g., 'triangle', 'tetrahedron').
-    nodal_coords : np.ndarray
-        An array of shape (num_nodes, dim) containing the coordinates of the cell's nodes.
+    Args:
+        cell_type: The type of the finite element cell (e.g., 'triangle', 'tetrahedron').
+        nodal_coords: An array of shape (num_nodes, dim) containing the coordinates of the cell's nodes.
 
-    Returns
-    -------
-    np.ndarray
+    Returns:
         The element stiffness matrix of shape (num_nodes, num_nodes) for the given cell.
     """
 
@@ -91,19 +86,13 @@ def solve_onezero(
     """Solves a Laplace problem on the given mesh with Dirichlet boundary
     conditions set to 1 on `one_nodes` and 0 on `zero_nodes`.
 
-    Parameters:
-        mesh: meshio.Mesh
-            The mesh on which to solve the Laplace problem.
-
-        one_nodes: np.ndarray
-            Array of node indices where the Dirichlet boundary condition is set to 1.
-
-        zero_nodes: np.ndarray
-            Array of node indices where the Dirichlet boundary condition is set to 0.
+    Args:
+        mesh: The mesh on which to solve the Laplace problem.
+        one_nodes: Array of node indices where the Dirichlet boundary condition is set to 1.
+        zero_nodes: Array of node indices where the Dirichlet boundary condition is set to 0.
 
     Returns:
-        np.ndarray
-            Solution array corresponding to the mesh nodes.
+        Solution array corresponding to the mesh nodes.
     """
     dbc_nodes = np.concatenate((np.array(one_nodes), np.array(zero_nodes)))
     dbc_values = np.concatenate((np.ones(len(one_nodes)), np.zeros(len(zero_nodes))))

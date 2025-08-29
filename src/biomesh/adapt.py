@@ -81,12 +81,11 @@ def lin_to_quad(mesh: meshio.Mesh) -> meshio.Mesh:
     are converted into their corresponding quadratic elements.
 
     Args:
-    -------
-    mesh: meshio.Mesh
-        The input mesh containing linear elements.
+        mesh:
+            The input mesh containing linear elements.
 
     Returns:
-        meshio.Mesh: The modified mesh with quadratic elements.
+        The modified mesh with quadratic elements.
     """
 
     new_points = [coord for coord in mesh.points]

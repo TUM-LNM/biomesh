@@ -24,8 +24,9 @@ def build_csr_from_multiple_elements(
 ) -> sp.csr_array:
     """Build a CSR adjacency matrix from multiple lists of cell connectivity.
 
-    n_nodes: total number of nodes
-    elements_lists: variable number of arrays/lists of elements
+    Args:
+        n_nodes: total number of nodes
+        elements_lists: variable number of arrays/lists of elements
     """
     adj = defaultdict(set)
 
@@ -57,10 +58,11 @@ def reorder(mesh: meshio.Mesh) -> meshio.Mesh:
     This function uses the reverse Cuthill-McKee algorithm to find an optimal ordering
     of the nodes in the mesh, which is particularly useful for sparse matrices.
 
-    Parameters
-    ----------
-    mesh : meshio.Mesh
-        The mesh to be reordered.
+    Args:
+        mesh: The mesh to be reordered.
+
+    Returns:
+        The mesh with reordered points.
     """
     csr_array = build_csr_from_multiple_elements(
         len(mesh.points), *mesh.cells_dict.values()
