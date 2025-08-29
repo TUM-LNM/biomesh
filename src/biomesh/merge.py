@@ -4,6 +4,7 @@
 #
 # SPDX-License-Identifier: MIT
 """A module to merge multuple meshes into one larger mesh."""
+
 import meshio
 import numpy as np
 

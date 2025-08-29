@@ -4,9 +4,11 @@
 #
 # SPDX-License-Identifier: MIT
 """Test small utilities."""
+
 import numpy as np
-import biomesh
 import scipy.spatial as sp
+
+import biomesh
 
 
 def test_bislerp():

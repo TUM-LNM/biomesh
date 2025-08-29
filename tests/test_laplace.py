@@ -4,11 +4,14 @@
 #
 # SPDX-License-Identifier: MIT
 """A test suite for the dummy Laplace solver."""
-import pytest
-import biomesh
-import numpy as np
+
 import pathlib
+
 import meshio
+import numpy as np
+import pytest
+
+import biomesh
 
 
 def test_cell_stiffness_hex():

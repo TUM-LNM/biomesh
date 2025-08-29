@@ -4,10 +4,11 @@
 #
 # SPDX-License-Identifier: MIT
 """A simple dummy Laplace-solver."""
-import numpy as np
-import math
+
 import meshio
+import numpy as np
 import scipy.sparse
+
 from . import fe
 
 _OPTIMAL_NUMBER_OF_INTEGRATION_POINTS = {

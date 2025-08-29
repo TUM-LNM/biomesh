@@ -5,10 +5,12 @@
 # SPDX-License-Identifier: MIT
 """Test merge meshes."""
 
-import meshio
-import biomesh
 import pathlib
+
+import meshio
 import numpy as np
+
+import biomesh
 
 
 def test_merge():

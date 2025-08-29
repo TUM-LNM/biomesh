@@ -4,10 +4,13 @@
 #
 # SPDX-License-Identifier: MIT
 """Testing filtering meshes."""
-import biomesh
+
 import pathlib
+
 import meshio
 import numpy as np
+
+import biomesh
 
 
 def test_filter_by_cellblock():

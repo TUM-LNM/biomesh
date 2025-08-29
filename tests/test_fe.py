@@ -4,11 +4,14 @@
 #
 # SPDX-License-Identifier: MIT
 """Tests for small finite element ulitities."""
-import pytest
+
 import pathlib
+
 import meshio
-import biomesh
 import numpy as np
+import pytest
+
+import biomesh
 
 
 @pytest.mark.parametrize("shape", ["tetra", "tetra10"])

@@ -4,10 +4,13 @@
 #
 # SPDX-License-Identifier: MIT
 """Testing mesh adaptation utilities."""
+
 import pathlib
+
 import meshio
-import biomesh
 import numpy as np
+
+import biomesh
 
 
 def test_lin_to_quad():

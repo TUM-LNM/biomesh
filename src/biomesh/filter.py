@@ -5,9 +5,10 @@
 # SPDX-License-Identifier: MIT
 """Filter for meshes to extract a subset."""
 
+from typing import Callable
+
 import meshio
 import numpy as np
-from typing import Callable
 
 
 def filter_by_cellblock_point_mapping(

@@ -6,23 +6,22 @@
 """Biomesh is a Python package for working with 3D meshes, providing tools for
 mesh generation, manipulation, and analysis tailored for finite element
 simulations of biomechanical applications."""
-from . import run_gmsh
+
 import pathlib
-from . import mesh
-import lnmmeshio
 import tempfile
+
+import lnmmeshio
 import meshio
-from .reorder import reorder
+
+from . import laplace, mesh, run_gmsh, utils
 from .adapt import lin_to_quad
-from .merge import merge
 from .filter import (
-    filter_by_cellblock,
     filter_by_block_ids,
+    filter_by_cellblock,
     filter_by_cellblock_point_mapping,
 )
-
-from . import utils
-from . import laplace
+from .merge import merge
+from .reorder import reorder
 
 
 def combine_colored_stl_files(*stl_files: pathlib.Path) -> meshio.Mesh:

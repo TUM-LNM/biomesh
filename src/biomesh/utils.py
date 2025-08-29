@@ -4,6 +4,7 @@
 #
 # SPDX-License-Identifier: MIT
 """Some small utilities."""
+
 import numpy as np
 import scipy.spatial as sp
 

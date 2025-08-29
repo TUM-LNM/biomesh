@@ -6,9 +6,10 @@
 """A module controlling running the gmsh api if installed."""
 
 import pathlib
-import meshio
 import tempfile
-from types import TracebackType, ModuleType
+from types import TracebackType
+
+import meshio
 
 
 class GmshApi:
