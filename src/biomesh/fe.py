@@ -4,9 +4,11 @@
 #
 # SPDX-License-Identifier: MIT
 """Small utilities for finite elements."""
-import numpy as np
+
 import math
+
 import meshio
+import numpy as np
 import symfem
 import sympy as sp
 

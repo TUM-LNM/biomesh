@@ -5,10 +5,11 @@
 # SPDX-License-Identifier: MIT
 """A module for utils for generating meshes."""
 
-import lnmmeshio
 import pathlib
-import numpy as np
+
+import lnmmeshio
 import meshio
+import numpy as np
 import scipy.spatial as sp
 
 
@@ -90,7 +91,6 @@ def merge_colored_stl(
 
         # append cells
         for cell_id, cell in enumerate(mesh.cells[0].data):
-
             key = _sort_cell_node_ids([node_mapping[i] for i in cell])
 
             if key not in cell_surface_ids:

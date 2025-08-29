@@ -5,11 +5,11 @@
 # SPDX-License-Identifier: MIT
 """Tests for meshing stl-files."""
 
-import biomesh
 import pathlib
-import meshio
+
 import pytest
-import numpy as np
+
+import biomesh
 
 _my_script_dir = pathlib.Path(__file__).parent
 

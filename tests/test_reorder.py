@@ -6,9 +6,11 @@
 """Tests for reordering nodes/elements in a finite element mesh."""
 
 import pathlib
+
 import meshio
-import biomesh
 import numpy as np
+
+import biomesh
 
 
 def test_reorder():

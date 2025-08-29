@@ -1,9 +1,12 @@
 repos:
-  - repo: https://github.com/psf/black
-    rev: 24.3.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.2
     hooks:
-      - id: black
-        args: [--check]
+      - id: ruff # linter
+        name: Run ruff (linter for Python)
+        args: ["--fix", "--select", "I,TID252,F401"] # "I => sort imports, TID252 => ban relative imports, F401 => unused imports"
+      - id: ruff-format # formatter
+        name: Run ruff (formatter for Python)
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:

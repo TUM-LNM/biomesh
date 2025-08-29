@@ -5,11 +5,12 @@
 # SPDX-License-Identifier: MIT
 """A module for reordering nodes in a finite element mesh."""
 
-import meshio
-import scipy.sparse as sp
-import numpy as np
-from collections import defaultdict
 import copy
+from collections import defaultdict
+
+import meshio
+import numpy as np
+import scipy.sparse as sp
 
 
 def reverse_permutation(perm: np.ndarray) -> np.ndarray:
