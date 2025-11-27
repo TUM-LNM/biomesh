@@ -1,0 +1,34 @@
+name: deploy_pages
+
+on:
+  workflow_run:
+    workflows: [documentation]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: dawidd6/action-download-artifact@v11
+        with:
+          workflow: documentation.yml
+          name: documentation
+          path: ${{ github.workspace }}/docs
+          branch: ${{ github.event.repository.default_branch }}
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ github.workspace }}
+          retention-days: 1
+      - id: deployment
+        uses: actions/deploy-pages@v4

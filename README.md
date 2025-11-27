@@ -19,7 +19,7 @@ pip install gmsh
 ## :book: Usage
 
 `biomesh` is composed of multiple utilities for working with complex biomechanical geometries. Below
-are some common workflows
+are some common workflows. Extensive documentation can be found [here](https://tum-lnm.github.io/biomesh/docs).
 
 ### Generate a mesh from colored STL files
 

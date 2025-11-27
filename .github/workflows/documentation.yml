@@ -1,0 +1,27 @@
+name: documentation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          pip install -r requirements-dev.txt
+          pip install -e .
+      - name: Create documentation
+        run: pdoc biomesh -o docs --docformat google
+      - uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: docs/
+          if-no-files-found: error
