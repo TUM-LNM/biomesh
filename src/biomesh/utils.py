@@ -34,7 +34,7 @@ def bislerp(
         for pm in [-1, 1]:
             q_help = sp.transform.Rotation.from_quat(pm * np.eye(4)[i])
 
-            q_m = (q_help * Q_A).as_quat()
+            q_m = (Q_A * q_help).as_quat()
             norm = np.abs(np.sum(q_m * q_b, axis=1))
 
             max_rotations[norm > norm_max] = q_m[norm > norm_max]

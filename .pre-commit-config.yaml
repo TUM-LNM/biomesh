@@ -85,6 +85,7 @@ repos:
     hooks:
       - id: removestar
         name: Run removestar (remove wildcard imports)
+        additional_dependencies: ["pyflakes<4"]
   - repo: https://github.com/crate-ci/typos
     rev: v1.34.0
     hooks:

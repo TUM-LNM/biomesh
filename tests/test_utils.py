@@ -52,17 +52,40 @@ def test_bislerp():
 
     expected_quats = np.array(
         [
-            [0.21408436, 0.87077918, 0.13904499, 0.42021185],
-            [0.60471909, 0.58638292, 0.42994409, 0.32498917],
-            [0.60659571, 0.37780372, 0.60421472, 0.35246356],
-            [0.53837475, 0.65110534, 0.460768, 0.27185899],
-            [0.74262705, 0.1954047, 0.22357685, 0.60027949],
-            [0.0116780937, 0.8750763374, 0.016219096, 0.4835720906],
-            [0.23619343, 0.69989401, 0.33616745, 0.58425379],
-            [0.7281708866, 0.4690390419, 0.4996123626, 0.012530932],
-            [0.426744029, 0.076734822, 0.1643270216, 0.8860010896],
-            [0.4553292, 0.12364629, 0.69305722, 0.54503083],
+            [0.2140843693, 0.8707791803, 0.1390449766, 0.4202118471],
+            [0.6047190917, 0.5863829232, 0.4299440984, 0.3249891686],
+            [0.6065957100, 0.3778037221, 0.6042147202, 0.3524635642],
+            [0.5383747573, 0.6511053404, 0.4607679939, 0.2718589932],
+            [0.7426270487, 0.1954047071, 0.2235768478, 0.6002794850],
+            [0.0509440272, 0.8626629746, 0.0465043663, 0.5010535324],
+            [0.2361934245, 0.6998940036, 0.3361674524, 0.5842537924],
+            [0.6436627137, 0.5037631482, 0.5756160599, 0.0242312389],
+            [0.4285218230, 0.1471075151, 0.3156109589, 0.8337374580],
+            [0.4553291970, 0.1236462927, 0.6930572229, 0.5450308270],
         ]
     )
 
     np.testing.assert_allclose(np.abs(rotations.as_quat()), expected_quats)
+
+
+def _fiber_angle_deg(Q_1: np.ndarray, Q_2: np.ndarray) -> np.ndarray:
+    """Angle between the first axes of two frame sets, ignoring their signs."""
+    cos = np.abs(np.einsum("ij,ij->i", Q_1[:, :, 0], Q_2[:, :, 0]))
+    return np.degrees(np.arccos(np.clip(cos, 0.0, 1.0)))
+
+
+def test_bislerp_returns_endpoints():
+    """At t=0 the result is Q_A, at t=1 it is Q_B (as frames, up to axis
+    signs)."""
+    rotation_1 = sp.transform.Rotation.random(200, random_state=1)
+    rotation_2 = sp.transform.Rotation.random(200, random_state=2)
+
+    at_start = biomesh.utils.bislerp(rotation_1, rotation_2, np.zeros(200))  # t=0
+    at_end = biomesh.utils.bislerp(rotation_1, rotation_2, np.ones(200))  # t=1
+
+    np.testing.assert_allclose(
+        _fiber_angle_deg(at_start.as_matrix(), rotation_1.as_matrix()), 0.0, atol=1e-3
+    )
+    np.testing.assert_allclose(
+        _fiber_angle_deg(at_end.as_matrix(), rotation_2.as_matrix()), 0.0, atol=1e-3
+    )
